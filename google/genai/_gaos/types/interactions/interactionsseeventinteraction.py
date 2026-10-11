@@ -35,6 +35,9 @@ InteractionSseEventInteractionStatus = Union[
         "failed",
         "cancelled",
         "incomplete",
+        "budget_exceeded",
+        "queued",
+        "continuation_required",
     ],
     UnrecognizedStr,
 ]
@@ -55,7 +58,7 @@ class InteractionSseEventInteractionTypedDict(TypedDict):
     agent: NotRequired[str]
     r"""The agent to interact with."""
     continuation_token: NotRequired[str]
-    r"""Output only. Opaque token to resume a long decode when status is incomplete."""
+    r"""Output only. Opaque token to resume a long decode when status is continuation_required."""
     created: NotRequired[str]
     r"""Output only. The time at which the response was created in ISO 8601 format."""
     model: NotRequired[str]
@@ -88,7 +91,7 @@ class InteractionSseEventInteraction(BaseModel):
     r"""The agent to interact with."""
 
     continuation_token: Optional[str] = None
-    r"""Output only. Opaque token to resume a long decode when status is incomplete."""
+    r"""Output only. Opaque token to resume a long decode when status is continuation_required."""
 
     created: Optional[str] = None
     r"""Output only. The time at which the response was created in ISO 8601 format."""
